@@ -10,10 +10,48 @@ import { NavLink } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 
 function AuthIllustration(props) {
-  const { children, illustrationBackground } = props;
+  const { children, videoBackground } = props;
   // Chakra color mode
   return (
     <Flex position='relative' h='max-content'>
+      <Box
+        position="fixed"
+        top="0"
+        left="0"
+        width="100vw"
+        height="100vh"
+        overflow="hidden"
+        zIndex="-1"
+      >
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          width="100%"
+          height="100%"
+          bg="blackAlpha.600"
+          zIndex="1"
+          className="auth-overlay"
+        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="video-bg"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        >
+          <source
+            src="https://data3.fra1.cdn.digitaloceanspaces.com/Finley.Time/DJI_20250511145110_0050_D%20-%20(4x5)_2.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </Box>
       <Flex
         h={{
           sm: "initial",
@@ -45,32 +83,14 @@ function AuthIllustration(props) {
               me='12px'
               h='13px'
               w='8px'
-              color='secondaryGray.600'
+              color='white'
             />
-            <Text ms='0px' fontSize='sm' color='secondaryGray.600'>
-              Back to Simmmple
+            <Text ms='0px' fontSize='sm' color='white' className="auth-text-shadow">
+              Back to Dashboard
             </Text>
           </Flex>
         </NavLink>
         {children}
-        <Box
-          display={{ base: "none", md: "block" }}
-          h='100%'
-          minH='100vh'
-          w={{ lg: "50vw", "2xl": "44vw" }}
-          position='absolute'
-          right='0px'>
-          <Flex
-            bg={`url(${illustrationBackground})`}
-            justify='center'
-            align='end'
-            w='100%'
-            h='100%'
-            bgSize='cover'
-            bgPosition='50%'
-            position='absolute'
-            borderBottomLeftRadius={{ lg: "120px", xl: "200px" }}></Flex>
-        </Box>
         <Footer />
       </Flex>
       <FixedPlugin />
@@ -80,8 +100,7 @@ function AuthIllustration(props) {
 // PROPS
 
 AuthIllustration.propTypes = {
-  illustrationBackground: PropTypes.string,
-  image: PropTypes.any,
+  videoBackground: PropTypes.string,
 };
 
 export default AuthIllustration;

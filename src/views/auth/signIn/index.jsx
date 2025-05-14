@@ -38,20 +38,20 @@ import {
   useToast,
 } from "@chakra-ui/react";
 // Custom components
-import { HSeparator } from "components/separator/Separator";
 import DefaultAuth from "layouts/auth/Default";
 // Assets
-import illustration from "assets/img/auth/auth.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 
 function SignIn() {
   // Chakra color mode
-  const textColor = useColorModeValue("navy.700", "white");
-  const textColorSecondary = "gray.400";
-  const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
-  const textColorBrand = useColorModeValue("brand.500", "white");
-  const brandStars = useColorModeValue("brand.500", "brand.400");
+  const textColor = useColorModeValue("white", "white");
+  const textColorSecondary = "gray.200";
+  const textColorDetails = useColorModeValue("white", "white");
+  const textColorBrand = useColorModeValue("white", "white");
+  const brandStars = useColorModeValue("white", "white");
+  const inputBg = useColorModeValue("whiteAlpha.200", "whiteAlpha.200");
+  const inputColor = useColorModeValue("white", "white");
 
   // State
   const [show, setShow] = useState(false);
@@ -102,7 +102,7 @@ function SignIn() {
   };
 
   return (
-    <DefaultAuth illustrationBackground={illustration} image={illustration}>
+    <DefaultAuth videoBackground="true">
       <Flex
         maxW={{ base: "100%", md: "max-content" }}
         w='100%'
@@ -116,15 +116,16 @@ function SignIn() {
         mt={{ base: "40px", md: "14vh" }}
         flexDirection='column'>
         <Box me='auto'>
-          <Heading color={textColor} fontSize='36px' mb='10px'>
+          <Heading color={textColor} fontSize='36px' mb='10px' className="auth-text-shadow">
             Sign In
           </Heading>
           <Text
             mb='36px'
             ms='4px'
             color={textColorSecondary}
-            fontWeight='400'
-            fontSize='md'>
+            fontWeight='500'
+            fontSize='md'
+            className="auth-text-shadow">
             Enter your username and password to sign in!
           </Text>
         </Box>
@@ -133,14 +134,20 @@ function SignIn() {
           direction='column'
           w={{ base: "100%", md: "420px" }}
           maxW='100%'
-          background='transparent'
+          background='rgba(0, 0, 0, 0.5)'
+          backdropFilter="blur(8px)"
           borderRadius='15px'
+          border="1px solid"
+          borderColor="whiteAlpha.200"
+          p="30px"
+          boxShadow="0px 4px 12px rgba(0, 0, 0, 0.2)"
           mx={{ base: "auto", lg: "unset" }}
           me='auto'
-          mb={{ base: "20px", md: "auto" }}>
+          mb={{ base: "20px", md: "auto" }}
+          className="auth-form-container">
           <FormControl>
             {error && (
-              <Text color="red.500" mb="15px" fontSize="sm" textAlign="center">
+              <Text color="red.300" mb="15px" fontSize="sm" textAlign="center">
                 {error}
               </Text>
             )}
@@ -150,7 +157,8 @@ function SignIn() {
               fontSize='sm'
               fontWeight='500'
               color={textColor}
-              mb='8px'>
+              mb='8px'
+              className="auth-text-shadow">
               Username<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
@@ -163,6 +171,11 @@ function SignIn() {
               mb='24px'
               fontWeight='500'
               size='lg'
+              bg={inputBg}
+              color={inputColor}
+              borderColor="whiteAlpha.200"
+              _focus={{ borderColor: "whiteAlpha.400" }}
+              _hover={{ borderColor: "whiteAlpha.300" }}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -171,7 +184,8 @@ function SignIn() {
               fontSize='sm'
               fontWeight='500'
               color={textColor}
-              display='flex'>
+              display='flex'
+              className="auth-text-shadow">
               Password<Text color={brandStars}>*</Text>
             </FormLabel>
             <InputGroup size='md'>
@@ -183,6 +197,11 @@ function SignIn() {
                 size='lg'
                 type={show ? "text" : "password"}
                 variant='auth'
+                bg={inputBg}
+                color={inputColor}
+                borderColor="whiteAlpha.200"
+                _focus={{ borderColor: "whiteAlpha.400" }}
+                _hover={{ borderColor: "whiteAlpha.300" }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -207,7 +226,8 @@ function SignIn() {
                   mb='0'
                   fontWeight='normal'
                   color={textColor}
-                  fontSize='sm'>
+                  fontSize='sm'
+                  className="auth-text-shadow">
                   Keep me logged in
                 </FormLabel>
               </FormControl>
@@ -216,7 +236,8 @@ function SignIn() {
                   color={textColorBrand}
                   fontSize='sm'
                   w='124px'
-                  fontWeight='500'>
+                  fontWeight='500'
+                  className="auth-text-shadow">
                   Forgot password?
                 </Text>
               </NavLink>
