@@ -18,8 +18,8 @@
 
 */
 
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 // Chakra imports
 import {
   Box,
@@ -35,13 +35,13 @@ import {
   InputRightElement,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 // Custom components
 import { HSeparator } from "components/separator/Separator";
 import DefaultAuth from "layouts/auth/Default";
 // Assets
 import illustration from "assets/img/auth/auth.png";
-import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 
@@ -52,18 +52,55 @@ function SignIn() {
   const textColorDetails = useColorModeValue("navy.700", "secondaryGray.600");
   const textColorBrand = useColorModeValue("brand.500", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
-  const googleBg = useColorModeValue("secondaryGray.300", "whiteAlpha.200");
-  const googleText = useColorModeValue("navy.700", "white");
-  const googleHover = useColorModeValue(
-    { bg: "gray.200" },
-    { bg: "whiteAlpha.300" }
-  );
-  const googleActive = useColorModeValue(
-    { bg: "secondaryGray.300" },
-    { bg: "whiteAlpha.200" }
-  );
-  const [show, setShow] = React.useState(false);
+
+  // State
+  const [show, setShow] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  
+  // Navigation and toast
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  // Handlers
   const handleClick = () => setShow(!show);
+  
+  const handleLogin = (e) => {
+    e.preventDefault();
+    
+    // Hardcoded credentials
+    const validUsername = "Finley";
+    const validPassword = "1234";
+    
+    if (username === validUsername && password === validPassword) {
+      // Success: Store login state in localStorage and redirect
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("user", username);
+      
+      toast({
+        title: "Login successful!",
+        description: `Welcome back, ${username}!`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      
+      // Redirect to dashboard
+      navigate("/admin");
+    } else {
+      // Failed login
+      setError("Invalid username or password");
+      toast({
+        title: "Login failed",
+        description: "Invalid username or password",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>
       <Flex
@@ -88,7 +125,7 @@ function SignIn() {
             color={textColorSecondary}
             fontWeight='400'
             fontSize='md'>
-            Enter your email and password to sign in!
+            Enter your username and password to sign in!
           </Text>
         </Box>
         <Flex
@@ -101,30 +138,12 @@ function SignIn() {
           mx={{ base: "auto", lg: "unset" }}
           me='auto'
           mb={{ base: "20px", md: "auto" }}>
-          <Button
-            fontSize='sm'
-            me='0px'
-            mb='26px'
-            py='15px'
-            h='50px'
-            borderRadius='16px'
-            bg={googleBg}
-            color={googleText}
-            fontWeight='500'
-            _hover={googleHover}
-            _active={googleActive}
-            _focus={googleActive}>
-            <Icon as={FcGoogle} w='20px' h='20px' me='10px' />
-            Sign in with Google
-          </Button>
-          <Flex align='center' mb='25px'>
-            <HSeparator />
-            <Text color='gray.400' mx='14px'>
-              or
-            </Text>
-            <HSeparator />
-          </Flex>
           <FormControl>
+            {error && (
+              <Text color="red.500" mb="15px" fontSize="sm" textAlign="center">
+                {error}
+              </Text>
+            )}
             <FormLabel
               display='flex'
               ms='4px'
@@ -132,18 +151,20 @@ function SignIn() {
               fontWeight='500'
               color={textColor}
               mb='8px'>
-              Email<Text color={brandStars}>*</Text>
+              Username<Text color={brandStars}>*</Text>
             </FormLabel>
             <Input
               isRequired={true}
               variant='auth'
               fontSize='sm'
               ms={{ base: "0px", md: "0px" }}
-              type='email'
-              placeholder='mail@simmmple.com'
+              type='text'
+              placeholder='Enter username'
               mb='24px'
               fontWeight='500'
               size='lg'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <FormLabel
               ms='4px'
@@ -157,11 +178,13 @@ function SignIn() {
               <Input
                 isRequired={true}
                 fontSize='sm'
-                placeholder='Min. 8 characters'
+                placeholder='Enter password'
                 mb='24px'
                 size='lg'
                 type={show ? "text" : "password"}
                 variant='auth'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement display='flex' alignItems='center' mt='4px'>
                 <Icon
@@ -204,29 +227,11 @@ function SignIn() {
               fontWeight='500'
               w='100%'
               h='50'
-              mb='24px'>
+              mb='24px'
+              onClick={handleLogin}>
               Sign In
             </Button>
           </FormControl>
-          <Flex
-            flexDirection='column'
-            justifyContent='center'
-            alignItems='start'
-            maxW='100%'
-            mt='0px'>
-            <Text color={textColorDetails} fontWeight='400' fontSize='14px'>
-              Not registered yet?
-              <NavLink to='/auth/sign-up'>
-                <Text
-                  color={textColorBrand}
-                  as='span'
-                  ms='5px'
-                  fontWeight='500'>
-                  Create an Account
-                </Text>
-              </NavLink>
-            </Text>
-          </Flex>
         </Flex>
       </Flex>
     </DefaultAuth>

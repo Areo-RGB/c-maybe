@@ -44,22 +44,12 @@ export default function SidebarDocs() {
         px='15px'
         pt='55px'>
         <Text
-          fontSize={{ base: "lg", xl: "18px" }}
-          color='white'
-          fontWeight='bold'
-          lineHeight='150%'
-          textAlign='center'
-          px='10px'
-          mt="10px"
-          mb='6px'>
-          Dashboard Info
-        </Text>
-        <Text
           fontSize='14px'
           color={"white"}
           fontWeight='500'
           px='10px'
           mb='6px'
+          mt="10px"
           textAlign='center'>
           Welcome to your dashboard control panel!
         </Text>
