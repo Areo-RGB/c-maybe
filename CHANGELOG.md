@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.0.1] 2025-14-05
+
+### Fixed Vercel Build Issue
+
+- Downgraded React from 19.0.0 to 18.0.0 to resolve compatibility issue with react-custom-scrollbars-2
+
 ## [3.0.0] 2025-13-01
 
 ### Upgraded to React 19 ⚡️
