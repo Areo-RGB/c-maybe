@@ -479,21 +479,16 @@ export default function AuthNavbar(props) {
             />
           </Box>
           {linksAuth}
-          <Link href='https://www.horizon-ui.com/pro'>
-            <Button
-              bg={bgButton}
-              color={colorButton}
-              fontSize='xs'
-              variant='no-effects'
-              borderRadius='50px'
-              px='45px'
-              display={{
-                sm: "none",
-                lg: "flex",
-              }}>
-              Buy Now
-            </Button>
-          </Link>
+          <Button
+            display="none"
+            bg={bgButton}
+            color={colorButton}
+            fontSize='xs'
+            variant='no-effects'
+            borderRadius='50px'
+            px='45px'>
+            Dashboard
+          </Button>
         </Flex>
       </Flex>
     </SidebarContext.Provider>

@@ -2,7 +2,6 @@ import {
   Button,
   Flex,
   Image,
-  Link,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -53,7 +52,7 @@ export default function SidebarDocs() {
           px='10px'
           mt="10px"
           mb='6px'>
-          Upgrade to PRO
+          Dashboard Info
         </Text>
         <Text
           fontSize='14px'
@@ -62,24 +61,21 @@ export default function SidebarDocs() {
           px='10px'
           mb='6px'
           textAlign='center'>
-          Improve your development process and start doing more with Horizon UI
-          PRO!
+          Welcome to your dashboard control panel!
         </Text>
       </Flex>
-      <Link href='https://horizon-ui.com/pro?ref=horizon-chakra-free'>
-        <Button
-          bg='whiteAlpha.300'
-          _hover={{ bg: "whiteAlpha.200" }}
-          _active={{ bg: "whiteAlpha.100" }}
-          mb={{ sm: "16px", xl: "24px" }}
-          color={"white"}
-          fontWeight='regular'
-          fontSize='sm'
-          minW='185px'
-          mx='auto'>
-          Upgrade to PRO
-        </Button>
-      </Link>
+      <Button
+        bg='whiteAlpha.300'
+        _hover={{ bg: "whiteAlpha.200" }}
+        _active={{ bg: "whiteAlpha.100" }}
+        mb={{ sm: "16px", xl: "24px" }}
+        color={"white"}
+        fontWeight='regular'
+        fontSize='sm'
+        minW='185px'
+        mx='auto'>
+        Documentation
+      </Button>
     </Flex>
   );
 }
