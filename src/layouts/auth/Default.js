@@ -1,7 +1,7 @@
 // Chakra imports
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Footer from "components/footer/FooterAuth";
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 // Custom components
@@ -10,7 +10,18 @@ import { NavLink } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 
 function AuthIllustration(props) {
-  const { children, videoBackground } = props;
+  const { children } = props;
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    // Ensure video plays automatically
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => {
+        console.error("Error playing video:", err);
+      });
+    }
+  }, []);
+  
   // Chakra color mode
   return (
     <Flex position='relative' h='max-content'>
@@ -21,7 +32,7 @@ function AuthIllustration(props) {
         width="100vw"
         height="100vh"
         overflow="hidden"
-        zIndex="-1"
+        zIndex="0"
       >
         <Box
           position="absolute"
@@ -34,6 +45,7 @@ function AuthIllustration(props) {
           className="auth-overlay"
         />
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -43,6 +55,9 @@ function AuthIllustration(props) {
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            position: "absolute",
+            top: 0,
+            left: 0
           }}
         >
           <source
@@ -53,6 +68,8 @@ function AuthIllustration(props) {
         </video>
       </Box>
       <Flex
+        position="relative"
+        zIndex="2"
         h={{
           sm: "initial",
           md: "unset",
@@ -100,7 +117,7 @@ function AuthIllustration(props) {
 // PROPS
 
 AuthIllustration.propTypes = {
-  videoBackground: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default AuthIllustration;

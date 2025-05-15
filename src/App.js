@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react';
 import initialTheme from './theme/theme'; //  { themeGreen }
 import { useState, useEffect } from 'react';
-// Chakra imports
+// Add ToastProvider for Shadcn UI
+import { ToastProvider } from './components/shadcn/ui/toast';
 
 // Protected route component
 const ProtectedRoute = ({ children }) => {
@@ -45,27 +46,31 @@ export default function Main() {
     };
   }, []);
   
+  // Wrap ChakraProvider with ToastProvider for Shadcn UI
+  // This allows using both component systems during migration
   return (
-    <ChakraProvider theme={currentTheme}>
-      <Routes>
-        <Route path="auth/*" element={<AuthLayout />} />
-        <Route
-          path="admin/*"
-          element={
-            <ProtectedRoute>
-              <AdminLayout theme={currentTheme} setTheme={setCurrentTheme} />
-            </ProtectedRoute>
-          }
-        />
-        <Route 
-          path="/" 
-          element={
-            isAuthenticated ? 
-              <Navigate to="/admin" replace /> : 
-              <Navigate to="/auth/sign-in" replace />
-          } 
-        />
-      </Routes>
-    </ChakraProvider>
+    <ToastProvider>
+      <ChakraProvider theme={currentTheme}>
+        <Routes>
+          <Route path="auth/*" element={<AuthLayout />} />
+          <Route
+            path="admin/*"
+            element={
+              <ProtectedRoute>
+                <AdminLayout theme={currentTheme} setTheme={setCurrentTheme} />
+              </ProtectedRoute>
+            }
+          />
+          <Route 
+            path="/" 
+            element={
+              isAuthenticated ? 
+                <Navigate to="/admin" replace /> : 
+                <Navigate to="/auth/sign-in" replace />
+            } 
+          />
+        </Routes>
+      </ChakraProvider>
+    </ToastProvider>
   );
 }

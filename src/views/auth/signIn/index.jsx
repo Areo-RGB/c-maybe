@@ -102,7 +102,7 @@ function SignIn() {
   };
 
   return (
-    <DefaultAuth videoBackground="true">
+    <DefaultAuth>
       <Flex
         maxW={{ base: "100%", md: "max-content" }}
         w='100%'
