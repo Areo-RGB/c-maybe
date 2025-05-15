@@ -48,7 +48,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "test-build": "node scripts/test-build.js"
+    "test-build": "node scripts/test-build.js",
+    "deploy:vercel": "vercel --prod"
   },
   "resolutions": {
     "react-error-overlay": "6.0.9"

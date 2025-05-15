@@ -65,6 +65,36 @@ Then run this command to start your local server
 npm start
 ```
 
+### Vercel Deployment
+
+This project is optimized for deployment on Vercel. Follow these steps to deploy:
+
+1. **Import your GitHub Repository**
+   - Go to [Vercel](https://vercel.com)
+   - Click "New Project"
+   - Import your repository from GitHub
+   - Select the repository containing Horizon UI
+
+2. **Configure Project**
+   - Framework Preset: Create React App
+   - Build Command: `npm run build`
+   - Output Directory: `build`
+   - Install Command: `npm install --legacy-peer-deps`
+
+3. **Environment Variables (Optional)**
+   - Add any environment variables if needed
+
+4. **Deploy**
+   - Click "Deploy"
+   - Vercel will automatically deploy your application
+   - Future pushes to the main branch will trigger automatic deployments
+
+The project includes a `vercel.json` file with optimized settings for:
+- SPA routing
+- Static asset caching
+- Security headers
+- Redirects
+
 ### Example Pages
 
 If you want to get inspiration or just show something directly to your clients,
